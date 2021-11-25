@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Text, View, ImageBackground } from "react-native";
+import { Text, View, ImageBackground, Pressable } from "react-native";
 import styles from "./screens/gameScreen/styles";
 import bg from "./assets/bg.jpeg";
 
@@ -11,14 +11,21 @@ export default function gameScreen() {
     ["o", "", ""], // 3rd row
   ]);
 
+  const onPress = (rowIndex, columnIndex) => {
+    console.warn("Hello ", rowIndex, columnIndex);
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground source={bg} style={styles.bg} resizeMode="contain">
         <View style={styles.map}>
-          {map.map((row) => (
+          {map.map((row, rowIndex) => (
             <View style={styles.row}>
-              {row.map((cell) => (
-                <View style={styles.cell}>
+              {row.map((cell, cellIndex) => (
+                <Pressable
+                  onPress={() => onPress(rowIndex, cellIndex)}
+                  style={styles.cell}
+                >
                   {cell == "o" && <View style={styles.circle} />}
                   {cell == "x" && (
                     <View style={styles.cross}>
@@ -28,7 +35,7 @@ export default function gameScreen() {
                       />
                     </View>
                   )}
-                </View>
+                </Pressable>
               ))}
             </View>
           ))}
