@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import { Text, View, ImageBackground } from "react-native";
+import styles from "./styles";
 import bg from "../../assets/bg.jpeg";
 import colors from "../../constants/colors";
 

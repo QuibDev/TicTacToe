@@ -16,15 +16,19 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   map: {
-    borderWidth: 1,
-    borderColor: colors.white,
     width: "80%",
     aspectRatio: 1,
   },
+  cell: {
+    flex: 1,
+    width: 100,
+    height: 100,
+  },
+  row: {
+    flex: 1,
+    flexDirection: "row",
+  },
   circle: {
-    position: "absolute",
-    left: 2 * 108,
-    top: 2 * 108,
     width: 75,
     height: 75,
     borderColor: colors.white,
@@ -35,14 +39,13 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   cross: {
-    width: 75,
-    height: 75,
-    position: "absolute",
+    flex: 1,
   },
   crossline: {
     position: "absolute",
+    left: "48%",
     width: 10,
-    height: 75,
+    height: "100%",
     backgroundColor: "white",
     borderRadius: 5,
     transform: [
