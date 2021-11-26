@@ -4,12 +4,14 @@ import { Text, View, ImageBackground, Pressable, Alert } from "react-native";
 import styles from "./screens/gameScreen/styles";
 import bg from "./assets/bg.jpeg";
 
+const emptyMap = [
+  ["", "", ""], // 1st row
+  ["", "", ""], // 2nd row
+  ["", "", ""], // 3rd row
+];
+
 export default function gameScreen() {
-  const [map, setMap] = useState([
-    ["", "", ""], // 1st row
-    ["", "", ""], // 2nd row
-    ["", "", ""], // 3rd row
-  ]);
+  const [map, setMap] = useState(emptyMap);
 
   const [currentTurn, setCurrentTurn] = useState("x");
 
@@ -23,19 +25,36 @@ export default function gameScreen() {
       return updatedArray;
     });
     setCurrentTurn(currentTurn === "x" ? "o" : "x");
-    checkWinningState();
+    const winner = getWinner();
+    if (winner) {
+      gameWon(winner);
+    } else {
+      checkTieState();
+    }
   };
 
-  const checkWinningState = () => {
+  const checkTieState = () => {
+    if (!map.some((row) => row.some((ceil) => ceil === ""))) {
+      Alert.alert(`Ooohh`, `It's a tie`, [
+        {
+          text: "Restart",
+          onPress: resetGame,
+        },
+      ]);
+    }
+  };
+
+  const getWinner = () => {
     // check rows
     for (let i = 0; i < 3; i++) {
       const isRowXWinning = map[i].every((cell) => cell === "x");
       const isRowOWinning = map[i].every((cell) => cell === "o");
+
       if (isRowXWinning) {
-        Alert.alert(`X won. Row: ${i}`);
+        return "x";
       }
       if (isRowOWinning) {
-        Alert.alert(`O won. Row: ${i}`);
+        return "o";
       }
     }
 
@@ -54,11 +73,11 @@ export default function gameScreen() {
       }
 
       if (isColumnXWinning) {
-        Alert.alert(`X won. Column ${col}`);
+        return "x";
         break;
       }
       if (isColumnOWinning) {
-        Alert.alert(`O won. Column ${col}`);
+        return "o";
         break;
       }
     }
@@ -85,19 +104,30 @@ export default function gameScreen() {
       }
     }
 
-    if (isDiagonal1XWinning) {
-      Alert.alert(`X won. Diagonal left to right`);
+    if (isDiagonal1XWinning || isDiagonal2XWinning) {
+      return "x";
     }
-    if (isDiagonal1OWinning) {
-      Alert.alert(`O won. Diagonal left to right`);
+    if (isDiagonal1OWinning || isDiagonal2OWinning) {
+      return "o";
     }
+  };
 
-    if (isDiagonal2XWinning) {
-      Alert.alert(`X won. Diagonal right to left`);
-    }
-    if (isDiagonal2OWinning) {
-      Alert.alert(`O won. Diagonal right to left`);
-    }
+  const gameWon = (player) => {
+    Alert.alert(`Huraaay`, `Player ${player} won`, [
+      {
+        text: "Restart",
+        onPress: resetGame,
+      },
+    ]);
+  };
+
+  const resetGame = () => {
+    setMap([
+      ["", "", ""], // 1st row
+      ["", "", ""], // 2nd row
+      ["", "", ""], // 3rd row
+    ]);
+    setCurrentTurn("x");
   };
 
   return (
