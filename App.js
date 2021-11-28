@@ -47,6 +47,7 @@ export default function gameScreen() {
   const onPress = (rowIndex, columnIndex) => {
     if (map[rowIndex][columnIndex] !== "") {
       Alert.alert("Position already occupied");
+      return;
     }
     setMap((existingMap) => {
       const updatedArray = [...existingMap];
@@ -142,12 +143,30 @@ export default function gameScreen() {
   };
 
   const gameWon = (player) => {
-    Alert.alert(`Huraaay`, `Player ${player} won`, [
-      {
-        text: "Restart",
-        onPress: resetGame,
-      },
-    ]);
+    if (gameMode === "LOCAL") {
+      Alert.alert(`Huraaay`, `Player ${player} won the match!`, [
+        {
+          text: "Restart",
+          onPress: resetGame,
+        },
+      ]);
+    } else {
+      if (getWinner(map) === "x") {
+        Alert.alert(`Huraaay!`, `Player ${player} won the match!`, [
+          {
+            text: "Restart",
+            onPress: resetGame,
+          },
+        ]);
+      } else {
+        Alert.alert(`Booooo!`, `Bot ${player} won the match!`, [
+          {
+            text: "Restart",
+            onPress: resetGame,
+          },
+        ]);
+      }
+    }
   };
 
   const resetGame = () => {
