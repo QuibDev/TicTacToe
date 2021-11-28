@@ -19,48 +19,32 @@ const styles = StyleSheet.create({
     width: "80%",
     aspectRatio: 1,
   },
-  cell: {
-    flex: 1,
-    width: 100,
-    height: 100,
-    margin: 4,
-  },
   row: {
     flex: 1,
     flexDirection: "row",
   },
-  circle: {
-    width: 75,
-    height: 75,
-    borderColor: colors.white,
-    borderRadius: 50,
-    borderWidth: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    margin: 10,
-  },
-  cross: {
-    flex: 1,
-  },
-  crossline: {
+  buttonRow: {
     position: "absolute",
-    left: "48%",
-    width: 10,
-    height: "100%",
-    backgroundColor: "white",
-    borderRadius: 5,
-    transform: [
-      {
-        rotate: "45deg",
-      },
-    ],
+    bottom: 50,
+    flexDirection: "row",
   },
-  crosslineReversed: {
-    transform: [
-      {
-        rotate: "-45deg",
-      },
-    ],
+
+  buttonActive: {
+    color: colors.white,
+    margin: 10,
+    fontSize: 20,
+    backgroundColor: colors.buttonActive,
+    padding: 10,
+    paddingHorizontal: 15,
+  },
+
+  buttonInActive: {
+    color: colors.white,
+    margin: 10,
+    fontSize: 20,
+    backgroundColor: colors.buttonInactive,
+    padding: 10,
+    paddingHorizontal: 15,
   },
 });
 
